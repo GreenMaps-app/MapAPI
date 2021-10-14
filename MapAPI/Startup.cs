@@ -46,7 +46,7 @@ namespace MapAPI
 
             services.AddControllers();
 
-            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["hackathonDBConn"].ConnectionString;
             //Console.WriteLine(connStr);
 
             services.AddDbContext<DatapointContext>(options => options.UseSqlServer(connStr));
@@ -54,10 +54,10 @@ namespace MapAPI
             //services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MapAPI", Version = "v1" });
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MapAPI", Version = "v1" });
+            });
 
         }
 
@@ -67,8 +67,8 @@ namespace MapAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MapAPI v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MapAPI v1"));
             }
 
             app.UseHttpsRedirection();
