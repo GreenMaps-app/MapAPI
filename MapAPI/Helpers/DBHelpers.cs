@@ -13,8 +13,8 @@ namespace MapAPI.Helpers
             string connStr = Environment.GetEnvironmentVariable($"ConnectionStrings:{name}", EnvironmentVariableTarget.Process);
             if (string.IsNullOrEmpty(connStr)) // Azure Functions App Service naming convention
                 connStr = Environment.GetEnvironmentVariable($"SQLCONNSTR_{name}", EnvironmentVariableTarget.Process);  // should be used on Azure
-            if (string.IsNullOrEmpty(connStr)) 
-                connStr = ConfigurationManager.ConnectionStrings[name].ConnectionString;    // localhost accessing Connection.Config
+            //if (string.IsNullOrEmpty(connStr)) 
+            //    connStr = ConfigurationManager.ConnectionStrings[name].ConnectionString;    // localhost accessing Connection.Config
             return connStr;
         }
     }
