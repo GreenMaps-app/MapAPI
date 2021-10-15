@@ -57,12 +57,17 @@ namespace MapAPI.Models.Repository
             if (db != null)
             {
                 db.MapLocationData.Add(entity);
+                db.SaveChanges();
             }
         }
         public void Delete(int id)
         {
-            MapLocationDatum datapoint = db.MapLocationData.Find(id);
-            db.MapLocationData.Remove(datapoint);
+            if (db != null)
+            {
+                MapLocationDatum datapoint = db.MapLocationData.Find(id);
+                db.MapLocationData.Remove(datapoint);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -19,8 +19,7 @@ namespace MapAPI
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            string connStr = DBHelpers.GetSqlConnectionString("hackathonDBConn");
-            return new string[] { "value1", "value2", connStr };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/<ValuesController>/5
@@ -34,7 +33,6 @@ namespace MapAPI
         [HttpPost]
         public void Post([FromBody] string value)
         {
-
         }
 
         // PUT api/<ValuesController>/5

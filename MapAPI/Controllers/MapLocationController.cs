@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MapAPI.Models.Repository;
+using MapAPI.Models;
 
 namespace MapAPI.Controllers
 {
@@ -20,7 +21,6 @@ namespace MapAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/datapoints")]
         public IActionResult GetDatapoints()
         {
             try
@@ -36,6 +36,53 @@ namespace MapAPI.Controllers
             catch (Exception)
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSingleDatapoint(int id)
+        {
+            try
+            {
+                var message = mapLocationRepository.Get(id);
+                if (message == null) {
+                    return NotFound();
+                }
+
+                return Ok(message);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public string PostDatapoint(MapLocationDatum datapointToEnter)
+        {
+            try
+            {
+                mapLocationRepository.Add(datapointToEnter);
+                return "Successfully added to repository";
+            }
+            catch (Exception)
+            {
+                return "An error occurred while posting";
+            }
+        }
+        [HttpDelete]
+        [Route("remove")]
+        public string DeleteDatapoint(int id)
+        {
+            try
+            {
+                mapLocationRepository.Delete(id);
+                return "Successfully removed from repository";
+            }
+            catch (Exception)
+            {
+                return "An error occurred while deleting";
             }
         }
     }
