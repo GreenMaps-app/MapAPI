@@ -41,12 +41,21 @@ namespace MapAPI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
+        public static string GetSqlConnectionString(string name)
+        {
+            string connStr = Environment.GetEnvironmentVariable($"ConnectionStrings:{name}", EnvironmentVariableTarget.Process);
+            if (string.IsNullOrEmpty(connStr)) // Azure Functions App Service naming convention
+                connStr = Environment.GetEnvironmentVariable($"SQLCONNSTR_{name}", EnvironmentVariableTarget.Process);
+            return connStr;
+        }
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
 
-            string connStr = ConfigurationManager.ConnectionStrings["hackathonDBConn"].ConnectionString;
+            //string connStr = ConfigurationManager.ConnectionStrings["hackathonDBConn"].ConnectionString;
+            string connStr = GetSqlConnectionString("hackathonDBConn");
             //Console.WriteLine(connStr);
 
             services.AddDbContext<DatapointContext>(options => options.UseSqlServer(connStr));
