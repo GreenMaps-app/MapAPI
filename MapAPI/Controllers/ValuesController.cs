@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.Common;
+using MapAPI.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +19,8 @@ namespace MapAPI
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            string connStr = DBHelpers.GetSqlConnectionString("hackathonDBConn");
+            return new string[] { "value1", "value2", connStr };
         }
 
         // GET api/<ValuesController>/5

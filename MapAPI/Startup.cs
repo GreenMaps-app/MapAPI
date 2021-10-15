@@ -16,9 +16,11 @@ using System.Configuration;
 
 using Microsoft.EntityFrameworkCore;
 using MapAPI.Models;
+using MapAPI.Helpers;
+using MapAPI.Models.Repository;
 
 // ensure that NuGet is set up properly on your project
-// right click on MapAPI and clikc Manage NuGet packages
+// right click on MapAPI and click Manage NuGet packages
 // make sure that https://www.nuget.org/api/v2/ is part of a source
 
 // use NuGet to install Swashbuckle.AspNetCore or,
@@ -42,23 +44,19 @@ namespace MapAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
-        public static string GetSqlConnectionString(string name)
-        {
-            string connStr = Environment.GetEnvironmentVariable($"ConnectionStrings:{name}", EnvironmentVariableTarget.Process);
-            if (string.IsNullOrEmpty(connStr)) // Azure Functions App Service naming convention
-                connStr = Environment.GetEnvironmentVariable($"SQLCONNSTR_{name}", EnvironmentVariableTarget.Process);
-            return connStr;
-        }
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-
             //string connStr = ConfigurationManager.ConnectionStrings["hackathonDBConn"].ConnectionString;
-            string connStr = GetSqlConnectionString("hackathonDBConn");
+            string connStr = DBHelpers.GetSqlConnectionString("hackathonDBConn");
+
             //Console.WriteLine(connStr);
 
-            services.AddDbContext<DatapointContext>(options => options.UseSqlServer(connStr));
+            //services.AddDbContext<hackathon_dbContext>(options => options.UseSqlServer(connStr));
+            services.AddEntityFrameworkSqlServer().AddDbContext<hackathon_dbContext>(options => options.UseSqlServer(connStr));
+            services.AddScoped<IMapLocationRepository, MapLocationRepository>();
+
+            services.AddControllers();
 
             //services.AddDatabaseDeveloperPageExceptionFilter();
 
