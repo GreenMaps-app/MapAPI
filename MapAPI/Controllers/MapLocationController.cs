@@ -69,16 +69,16 @@ namespace MapAPI.Controllers
          */
         [HttpPost]
         [Route("add")]
-        public string PostDatapoint(MapLocationDatum datapointToEnter)
+        public int PostDatapoint(MapLocationDatum datapointToEnter)
         {
             try
             {
-                mapLocationRepository.Add(datapointToEnter);
-                return "Successfully added to database";
+                int id = mapLocationRepository.Add(datapointToEnter);
+                return id;
             }
             catch (Exception)
             {
-                return "An error occurred while posting";
+                return -1;
             }
         }
 

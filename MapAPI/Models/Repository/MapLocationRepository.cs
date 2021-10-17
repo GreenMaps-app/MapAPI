@@ -64,14 +64,17 @@ namespace MapAPI.Models.Repository
 
             return null;
         }
-        public void Add(MapLocationDatum entity)
+        public int Add(MapLocationDatum entity)
         {
             if (db != null)
             {
                 // Must save changes after making a change to the database
                 db.MapLocationData.Add(entity);
                 db.SaveChanges();
+
+                return entity.Id;
             }
+            return -1;
         }
 
         public void UpdateStatus(int id, bool status)
