@@ -64,6 +64,10 @@ namespace MapAPI.Models
 
                 entity.Property(e => e.Resolved)
                     .HasColumnName("resolved");
+
+                entity.Property(e => e.Severity)
+                    .IsUnicode(false)
+                    .HasColumnName("severity");
             });
 
             OnModelCreatingPartial(modelBuilder);
