@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MapAPI.Models.Repository;
 using MapAPI.Models;
 
@@ -20,6 +16,10 @@ namespace MapAPI.Controllers
             this.mapLocationRepository = locationRepository;
         }
 
+        /**
+         * GET method to get all datapoints
+         * Endpoint is [base URL]/
+         */
         [HttpGet]
         public IActionResult GetDatapoints()
         {
@@ -39,6 +39,10 @@ namespace MapAPI.Controllers
             }
         }
 
+        /**
+         * GET method to get a single datapoint by ID
+         * Endpoint is [base URL]/[id]
+         */
         [HttpGet("{id}")]
         public IActionResult GetSingleDatapoint(int id)
         {
@@ -57,6 +61,12 @@ namespace MapAPI.Controllers
             }
         }
 
+        /**
+         * POST method to add a datapoint by passing in all arguments of required of the model
+         * ID doesn't have to be entered since the database will autoincrement and autocreate the ID
+         * If the ID is given, it ignores it and just overrides it with the autocreated ID
+         * Endpoint is [base URL]/add
+         */
         [HttpPost]
         [Route("add")]
         public string PostDatapoint(MapLocationDatum datapointToEnter)
@@ -71,6 +81,11 @@ namespace MapAPI.Controllers
                 return "An error occurred while posting";
             }
         }
+
+        /**
+         * DELETE method to remove a datapoint by ID
+         * Endpoint is [base URL]/remove
+         */
         [HttpDelete]
         [Route("remove")]
         public string DeleteDatapoint(int id)

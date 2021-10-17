@@ -14,16 +14,26 @@ namespace MapAPI.Models.Repository
             this.db = dbContext;
         }
 
+        /**
+         * Get all datapoints inside the database table
+         */
         public List<MapLocationDatum> GetAll()
         {
             if (db != null)
             {
                 List<MapLocationDatum> datapoints = new List<MapLocationDatum>();
 
+                /**
+                 * Equivalent SQL query
+                 * SELECT * FROM db.MapLocationData ORDER BY Id DESC;
+                 */
                 var result = from o in db.MapLocationData
                              orderby o.Id descending
                              select o;
 
+                /**
+                 * Intialize new datapoint object for each result and add to the list
+                 */
                 foreach (var r in result)
                 {
                     MapLocationDatum datapoint = new MapLocationDatum();
@@ -34,6 +44,7 @@ namespace MapAPI.Models.Repository
                     datapoint.Latitude = r.Latitude;
                     datapoint.Longitude = r.Longitude;
                     datapoint.Message = r.Message;
+                    datapoint.Resolved = r.Resolved;
 
                     datapoints.Add(datapoint);
                 }
@@ -41,6 +52,7 @@ namespace MapAPI.Models.Repository
                 return datapoints;
             }
 
+            // If database is null, return null
             return null;
         }
         public MapLocationDatum Get(int id)
@@ -56,6 +68,7 @@ namespace MapAPI.Models.Repository
         {
             if (db != null)
             {
+                // Must save changes after making a change to the database
                 db.MapLocationData.Add(entity);
                 db.SaveChanges();
             }
@@ -64,6 +77,7 @@ namespace MapAPI.Models.Repository
         {
             if (db != null)
             {
+                // Must save changes after making a change to the database
                 MapLocationDatum datapoint = db.MapLocationData.Find(id);
                 db.MapLocationData.Remove(datapoint);
                 db.SaveChanges();
