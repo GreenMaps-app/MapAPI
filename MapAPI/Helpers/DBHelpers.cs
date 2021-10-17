@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MapAPI.Helpers
 {
+    // Helper functions
     public class DBHelpers
     {
+        /**
+         * Resolve where to get the connection string from depending on the environment
+         * ConfirguationManager gets from Connection.Config
+         * SQLCONNSTR are for SQL Servers
+         * SQLAZURECONNSTR are for Azure SQL servers
+         */
         public static string GetSqlConnectionString(string name)
         {
             string connStr = Environment.GetEnvironmentVariable($"ConnectionStrings:{name}", EnvironmentVariableTarget.Process);
