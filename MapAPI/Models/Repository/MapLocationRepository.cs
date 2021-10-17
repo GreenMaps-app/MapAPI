@@ -46,6 +46,7 @@ namespace MapAPI.Models.Repository
                     datapoint.Longitude = r.Longitude;
                     datapoint.Message = r.Message;
                     datapoint.Resolved = r.Resolved;
+                    datapoint.Severity = r.Severity;
 
                     datapoints.Add(datapoint);
                 }
@@ -97,6 +98,7 @@ namespace MapAPI.Models.Repository
                     datapoint.Longitude = r.Longitude;
                     datapoint.Message = r.Message;
                     datapoint.Resolved = r.Resolved;
+                    datapoint.Severity = r.Severity;
 
                     datapoints.Add(datapoint);
                 }
@@ -110,6 +112,7 @@ namespace MapAPI.Models.Repository
 
         public int Add(MapLocationDatum entity)
         {
+            // NOTE THAT severity ONLY ALLOWS "Low", "Medium", "High"
             if (db != null)
             {
                 // Must save changes after making a change to the database
