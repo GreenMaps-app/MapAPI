@@ -74,11 +74,30 @@ namespace MapAPI.Controllers
             try
             {
                 mapLocationRepository.Add(datapointToEnter);
-                return "Successfully added to repository";
+                return "Successfully added to database";
             }
             catch (Exception)
             {
                 return "An error occurred while posting";
+            }
+        }
+
+        /**
+         * PUT method to change a datapoint status by ID
+         * Endpoint is [base URL]/update
+         */
+        [HttpPut]
+        [Route("update")]
+        public string UpdateDatapointStatus(int id, bool status)
+        {
+            try
+            {
+                mapLocationRepository.UpdateStatus(id, status);
+                return "Successfully updated in database";
+            }
+            catch (Exception)
+            {
+                return "An error occurred while putting";
             }
         }
 
@@ -93,7 +112,7 @@ namespace MapAPI.Controllers
             try
             {
                 mapLocationRepository.Delete(id);
-                return "Successfully removed from repository";
+                return "Successfully removed from database";
             }
             catch (Exception)
             {
