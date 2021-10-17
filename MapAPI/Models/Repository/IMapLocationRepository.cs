@@ -9,6 +9,7 @@ namespace MapAPI.Models.Repository
     {
         List<MapLocationDatum> GetAll();
         MapLocationDatum Get(int id);
+        List<MapLocationDatum> GetSearch(string searchTerm);
         int Add (MapLocationDatum entity);
         void UpdateStatus (int id, bool status);
         void Delete(int id);
