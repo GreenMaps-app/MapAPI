@@ -73,6 +73,18 @@ namespace MapAPI.Models.Repository
                 db.SaveChanges();
             }
         }
+
+        public void UpdateStatus(int id, bool status)
+        {
+            if (db != null)
+            {
+                // Must save changes after making a change to the database
+                
+                MapLocationDatum datapoint = db.MapLocationData.Find(id);
+                datapoint.Resolved = status;
+                db.SaveChanges();
+            }
+        }
         public void Delete(int id)
         {
             if (db != null)
