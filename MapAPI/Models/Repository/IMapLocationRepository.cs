@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapAPI.Models;
+﻿using System.Collections.Generic;
 
 namespace MapAPI.Models.Repository
 {
+    /**
+     * Interface to be implemented by MapLocationRepository
+     */
     public interface IMapLocationRepository
     {
         List<MapLocationDatum> GetAll();

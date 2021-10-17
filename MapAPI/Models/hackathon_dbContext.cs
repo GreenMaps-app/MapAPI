@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using MapAPI.Helpers;
 
+/**
+ * Automatically created by scanning through the database
+ */
 #nullable disable
 
 namespace MapAPI.Models
@@ -60,6 +61,9 @@ namespace MapAPI.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("title");
+
+                entity.Property(e => e.Resolved)
+                    .HasColumnName("resolved");
             });
 
             OnModelCreatingPartial(modelBuilder);

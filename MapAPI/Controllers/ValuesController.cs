@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Data.Common;
-using MapAPI.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+/**
+ * A default controller created automatically. Used only for reference.
+ */
 namespace MapAPI
 {
     [Route("api/[controller]")]
