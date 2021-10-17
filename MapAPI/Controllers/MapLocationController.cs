@@ -25,13 +25,13 @@ namespace MapAPI.Controllers
         {
             try
             {
-                var messages = mapLocationRepository.GetAll();
-                if (messages == null)
+                var datapoints = mapLocationRepository.GetAll();
+                if (datapoints == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(messages);
+                return Ok(datapoints);
             }
             catch (Exception)
             {
@@ -48,18 +48,42 @@ namespace MapAPI.Controllers
         {
             try
             {
-                var message = mapLocationRepository.Get(id);
-                if (message == null) {
+                var datapoint = mapLocationRepository.Get(id);
+                if (datapoint == null) {
                     return NotFound();
                 }
 
-                return Ok(message);
+                return Ok(datapoint);
             }
             catch (Exception)
             {
                 return BadRequest();
             }
         }
+
+        /**
+         * GET method to search datapoints
+         * Endpoint is [base URL]/search/[string to search with]
+         */
+        [HttpGet("search/{searchTerm}")]
+        public IActionResult GetSearchedDatapoints(string searchTerm)
+        {
+            try
+            {
+                var datapoints = mapLocationRepository.GetSearch(searchTerm);
+                if (datapoints == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(datapoints);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
 
         /**
          * POST method to add a datapoint by passing in all arguments of required of the model
@@ -82,6 +106,7 @@ namespace MapAPI.Controllers
             }
         }
 
+        
         /**
          * PUT method to change a datapoint status by ID
          * Endpoint is [base URL]/update
